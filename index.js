@@ -29,8 +29,10 @@ function update() {
 	let id = this.getAttribute("id");
 	let todos = get_todos();
 	let task = prompt("Edit Task", todos[id]);
-	todos[id] = task;
-	localStorage.setItem("todo", JSON.stringify(todos));
+	if (task != null) {
+		todos[id] = task;
+		localStorage.setItem("todo", JSON.stringify(todos));
+	}
 	show();
 }
 
