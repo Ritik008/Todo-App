@@ -25,20 +25,31 @@ function remove() {
 	show();
 }
 
+function update() {
+	let id = this.getAttribute("id");
+	let todos = get_todos();
+	let task = prompt("Edit Task", todos[id]);
+	todos[id] = task;
+	localStorage.setItem("todo", JSON.stringify(todos));
+	show();
+}
+
 let show = () => {
 	let todos = get_todos();
 
 	let html = `<ul class='list-group'>`;
 	for (let i = 0; i < todos.length; i++) {
-		html += `<li class='list-group-item'> ${todos[i]}<i class="remove fas fa-trash" style="float: right; cursor: pointer;" id=${i}></i></li>`;
+		html += `<li class='list-group-item'> ${todos[i]}<i class="remove fas fa-trash" style="float: right; cursor: pointer;" id=${i}></i><i style="float: right; cursor: pointer; margin-right:20px;"; class="update fas fa-edit"  id=${i}>edit</i></li>`;
 	}
 	html += `</ul>`;
 
 	document.getElementById("todos").innerHTML = html;
 
 	let buttons = document.getElementsByClassName("remove");
+	let update_button = document.getElementsByClassName("update");
 	for (let i = 0; i < buttons.length; i++) {
 		buttons[i].addEventListener("click", remove);
+		update_button[i].addEventListener("click", update);
 	}
 };
 
